@@ -13,7 +13,7 @@ public class ClientSocketHandler {
 
         try {
 
-            client = new Client("192.168.0.113", 8000);
+            client = new Client("127.0.0.1", 8000);
             System.out.println("Client Connected To Server...");
             System.out.println("----------------------------------\n");
 
@@ -26,7 +26,7 @@ public class ClientSocketHandler {
                 try {
 //                    System.out.print("You : ");
                     String dataToSend = scanner.nextLine();
-                    client.sendData(dataToSend);
+                    client.sendData(client.getClientName() + " : "+ dataToSend);
                 } catch (IOException e) {
                     System.out.println("Client is unable to send data !!!");
                 }

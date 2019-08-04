@@ -19,16 +19,17 @@ public class ReceiveDataFromClients implements Runnable {
         try {
             while (true) {
                 String message = server.receiveData(clientSocket);
-                System.out.println(clientSocket.getRemoteSocketAddress() + " : " + message);
+//                System.out.println(clientSocket.getRemoteSocketAddress() + " : " + message);
+                System.out.println(message);
                 for (Socket clientSockets : ClientsConnectedList.clientSocketsMap.keySet()) {
                     if (!clientSocket.equals(clientSockets)) {
-                        String clientName = ClientsConnectedList.clientSocketsMap.get(clientSockets);
-                        server.sendData(clientSockets, clientName + " : " + message);
+                        server.sendData(clientSockets, message);
                     }
                 }
             }
         } catch (IOException e) {
-            System.out.println("Unable to receive data from client !!!");
+            ClientsConnectedList.clientSocketsMap.remove(clientSocket);
+            System.out.println("Client Exited !!!");
         }
 
 //        Thread newReceiveThread = new Thread(new ReceiveDataFromClients(this.server,this.clientSocket));

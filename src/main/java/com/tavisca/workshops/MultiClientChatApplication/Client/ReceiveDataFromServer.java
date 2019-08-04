@@ -14,7 +14,7 @@ class ReceiveDataFromServer implements Runnable {
         try {
             while (true) {
                 String receivedData = client.receiveData();
-                System.out.println("Server : " + receivedData);
+                System.out.println(receivedData);
             }
         } catch(IOException e){
                 e.printStackTrace();

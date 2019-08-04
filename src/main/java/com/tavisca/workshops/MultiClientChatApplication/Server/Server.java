@@ -23,6 +23,10 @@ public class Server {
         serverSocket = new ServerSocket(this.port);
     }
 
+    public String getServerName(){
+        return serverName;
+    }
+
     public Socket acceptClients() throws IOException {
         socket = serverSocket.accept();
         return socket;

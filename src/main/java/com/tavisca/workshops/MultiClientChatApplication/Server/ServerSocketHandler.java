@@ -31,8 +31,8 @@ public class ServerSocketHandler {
             String message = scanner.nextLine();
             try {
                 for (Socket clientSockets : ClientsConnectedList.clientSocketsMap.keySet()) {
-                    String clientName = ClientsConnectedList.clientSocketsMap.get(clientSockets);
-                    server.sendData(clientSockets, clientName + " : " + message);
+//                    String clientName = ClientsConnectedList.clientSocketsMap.get(clientSockets);
+                    server.sendData(clientSockets, server.getServerName() + " : " + message);
 
                 }
             } catch (IOException e) {

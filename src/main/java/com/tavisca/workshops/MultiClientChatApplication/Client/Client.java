@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Client {
 
+    private String clientName;
     private Socket socket;
     private String ipAddress;
     private int port;
@@ -15,17 +16,20 @@ public class Client {
     DataOutputStream dataOutputStream;
 
     Client(String ipAddress, int port) throws IOException {
-//        port = 8000;
         this.ipAddress = ipAddress;
         this.port = port;
         socket = new Socket(this.ipAddress, this.port);
         sendClientDetails();
     }
 
+    public String getClientName() {
+        return clientName;
+    }
+
     private void sendClientDetails() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Your Name : ");
-        String clientName = scanner.nextLine();
+        this.clientName = scanner.nextLine();
         try {
             sendData("Client Details : " + clientName);
         } catch (IOException e) {
