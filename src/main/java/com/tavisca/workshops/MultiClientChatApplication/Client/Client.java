@@ -57,6 +57,7 @@ public class Client {
 
     public void close() throws IOException {
         ClientsConnectedList.socketsClientNameMap.remove(socket);
+        ClientsConnectedList.clientNameSocketMap.remove(clientName);
         dataInputStream.close();
         dataOutputStream.close();
         socket.close();
