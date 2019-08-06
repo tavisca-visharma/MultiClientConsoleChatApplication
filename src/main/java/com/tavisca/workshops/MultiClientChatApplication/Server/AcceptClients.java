@@ -23,8 +23,10 @@ public class AcceptClients implements Runnable {
             System.out.println(clientSocket.getRemoteSocketAddress());
             String clientDetails = server.receiveData(clientSocket);
             if (clientDetails.startsWith("Client Details : ")) {
-                System.out.println(clientDetails.substring(17).trim() + " added");
-                ClientsConnectedList.clientSocketsMap.put(clientSocket, clientDetails.substring(17).trim());
+                String clientName = clientDetails.substring(17).trim();
+                System.out.println(clientName + " added");
+                ClientsConnectedList.socketsClientNameMap.put(clientSocket, clientName);
+                ClientsConnectedList.clientNameSocketMap.put(clientName,clientSocket);
             } else {
                 server.sendData(clientSocket, "Please Provide Client Information.\nClosing Connection...");
                 clientSocket.close();

@@ -30,7 +30,7 @@ public class ServerSocketHandler {
 //            System.out.print("You : ");
             String message = scanner.nextLine();
             try {
-                for (Socket clientSockets : ClientsConnectedList.clientSocketsMap.keySet()) {
+                for (Socket clientSockets : ClientsConnectedList.socketsClientNameMap.keySet()) {
 //                    String clientName = ClientsConnectedList.clientSocketsMap.get(clientSockets);
                     server.sendData(clientSockets, server.getServerName() + " : " + message);
 

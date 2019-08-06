@@ -8,6 +8,7 @@ import java.net.Socket;
 public class ReceiveDataFromClients implements Runnable {
     Server server;
     Socket clientSocket;
+    private String clientName;
 
     ReceiveDataFromClients(Server server, Socket clientSocket) {
         this.server = server;
@@ -20,15 +21,24 @@ public class ReceiveDataFromClients implements Runnable {
             while (true) {
                 String message = server.receiveData(clientSocket);
 //                System.out.println(clientSocket.getRemoteSocketAddress() + " : " + message);
-                System.out.println(message);
-                for (Socket clientSockets : ClientsConnectedList.clientSocketsMap.keySet()) {
-                    if (!clientSocket.equals(clientSockets)) {
-                        server.sendData(clientSockets, message);
+                String[] splittedMessage;
+                clientName = ClientsConnectedList.socketsClientNameMap.get(clientSocket);
+                System.out.println(clientName + " : " + message);
+                if (message.contains("#") && message.contains("@")) {
+                    splittedMessage = message.split("#");
+                    Socket specificClientSocket = ClientsConnectedList.clientNameSocketMap.get(splittedMessage[0].trim().substring(1));
+                    server.sendData(specificClientSocket, clientName + " : " + splittedMessage[1].trim());
+                } else {
+                    for (Socket clientSockets : ClientsConnectedList.socketsClientNameMap.keySet()) {
+                        if (!clientSocket.equals(clientSockets)) {
+                            server.sendData(clientSockets, clientName + " : " + message);
+                        }
                     }
                 }
             }
         } catch (IOException e) {
-            ClientsConnectedList.clientSocketsMap.remove(clientSocket);
+            ClientsConnectedList.socketsClientNameMap.remove(clientSocket);
+            ClientsConnectedList.clientNameSocketMap.remove(clientName);
             System.out.println("Client Exited !!!");
         }
 

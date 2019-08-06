@@ -26,7 +26,7 @@ public class ClientSocketHandler {
                 try {
 //                    System.out.print("You : ");
                     String dataToSend = scanner.nextLine();
-                    client.sendData(client.getClientName() + " : "+ dataToSend);
+                    client.sendData(dataToSend);
                 } catch (IOException e) {
                     System.out.println("Client is unable to send data !!!");
                 }
